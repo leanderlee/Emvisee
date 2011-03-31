@@ -1,0 +1,12 @@
+[stage] Sanity Check
+$hippo = 5;
+
+[module] Simple Test
+test($hippo, 5);
+$hippo = 0;
+test($hippo, 0, 'Basic assignment test');
+test($hippo+3, 3, 'Inline addition');
+
+[module] Stage Reset
+test($hippo, 5, 'Stage reset test');
+

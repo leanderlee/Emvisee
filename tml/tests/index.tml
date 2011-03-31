@@ -1,0 +1,59 @@
+{% extends 'default.tml' %}
+
+{% block styles %}
+<style type="text/css">
+div.title { font: 3em/2em black; padding: 10px 30px; }
+div.info { font: 2em/2em black; padding: 10px 30px; }
+div.passed { background: #9EF7B5; }
+div.failed { background: #F5CECE; }
+div.module { padding: 20px 30px; margin: 10px; }
+div.module.passed { font-size: 0.8em; padding: 4px 30px; color: #92BF8A; background: #CEF5D0; }
+div.module.failed { background: #F5CECE; }
+div.module div.title { font: 1.3em/1em black; margin: 0; padding: 3px 0; }
+div.module div.test { margin: 0; padding: 3px 10px; }
+div.module div.test.passed { background: #CEF5D0; }
+div.module div.test.failed { background: #FFBABA; }
+div.module div.test div.title { font: 1em/1em black; margin: 0; padding: 0; }
+div.module div.test div.variable { font: 0.8em/0.8em 'courier new', courier, mono; color: #525252; margin: 0; padding: 7px 15px 0; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(function () {
+    $('.module').each(function () {
+        if ($(this).find('.failed').size() > 0) {
+            $(this).addClass('failed');
+        }
+        else {
+            $(this).addClass('passed');
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block page %}
+<div class="title {% if total_failed == 0 %}passed{% else %}failed{% endif %}">{{ test_name }}</div>
+<div class="info">Passed {{ total_passed }}, Failed {{ total_failed }}.</div>
+{% for module_name, tests in modules %}
+<div class="module">
+    <div class="title">{{ module_name }}</div>
+    {% for test_name, test in tests %}
+    <div class="test {% if test.passed %}passed{% else %}failed{% endif %}">
+        <div class="title">{{ test_name }}</div>
+        {% if not test.passed %}
+            {% for name, value in test %}
+            {% if name != 'passed' %}
+            <div class="variable">
+                <span class="name">{{ name }}</span> = 
+                <span class="value">{{ value }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

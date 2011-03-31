@@ -1,0 +1,34 @@
+{% extends 'default.tml' %}
+
+{% block styles %}
+<style type="text/css">
+div.title { font: 3em/2em black; padding: 5px 30px; }
+div.info { font: 1.4em/1.6em black; padding: 4px 50px; }
+a.test { font: 2em/2em black; margin: 0; padding: 0 35px; }
+div.passed { background: #9EF7B5; }
+div.failed { background: #F5CECE; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(function () {
+    $('.module').each(function () {
+        if ($(this).find('.failed').size() > 0) {
+            $(this).addClass('failed');
+        }
+        else {
+            $(this).addClass('passed');
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block page %}
+<div class="title">Unit Tests</div>
+<div class="info">{{ total_tests }} tests.</div>
+{% for test in tests %}
+<a href="tests/{{ test }}/" class="test">{{ test }}</a>
+{% endfor %}
+{% endblock %}

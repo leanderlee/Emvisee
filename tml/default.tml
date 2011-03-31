@@ -1,0 +1,35 @@
+{% import 'common/javascript.tml' as js %}
+{% import 'common/stylesheet.tml' as css %}
+<!doctype html>
+<html lang="{% block language language|default('en') %}">
+<head>
+    
+        <!--
+        
+        Good developers always view source.
+        
+        -->
+    
+    <title>{% block title title|default('') %}</title>
+    
+    <meta charset="utf-8" />
+    
+    <base href="{% block base base|default('/') %}" />
+    
+    {{ css.src('reset') }}
+{% block styles %}
+{% endblock %}
+    
+    {{ js.jquery() }}
+{% block scripts %}
+{% endblock %}
+    
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+{% block page %}
+{% endblock %}
+</body>
+</html>

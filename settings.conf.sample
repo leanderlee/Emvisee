@@ -1,0 +1,8 @@
+{
+    "production": false,
+    "root": "/",
+    "db"  : "database",
+    "user": "username",
+    "pass": "password",
+    "host": "localhost"
+}

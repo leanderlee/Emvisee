@@ -1,0 +1,6 @@
+
+/* ------------------ Form ------------------ */
+form.cabinet-form label {display: block; margin-bottom: 1.5em; font-weight: bold;}
+form.cabinet-form label input {display: block; width: 20em; font-weight: normal; padding: 2px;color: #666;}
+form.cabinet-form label select {display: inline; font-weight: normal;}
+form.cabinet-form label textarea {display: block; width: 40em; height: 40px; font-weight: normal; padding: 2px;}

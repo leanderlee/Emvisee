@@ -1,0 +1,16 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+#
+# Development Rules
+#
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*$ index.php [L]
+
+#
+# Production Rules
+#
+#RewriteCond %{REQUEST_FILENAME} !-f [OR]
+#RewriteCond %{REQUEST_URI} !^/static/.*
+#RewriteRule ^.*$ index.php [L]
+

@@ -1,0 +1,5 @@
+{% extends 'default.tml' %}
+
+{% block page %}
+    Oops! We couldn't find that page.
+{% endblock %}

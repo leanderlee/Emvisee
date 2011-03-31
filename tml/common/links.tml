@@ -1,0 +1,3 @@
+{% macro show(item) %}
+    <a class="{{ item.classes }}"{% for attribute,value in item.attr %} {{ attribute }}="{{ value }}"{% endfor %}>{{ item.text }}</a>
+{% endmacro %}

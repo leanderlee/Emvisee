@@ -1,0 +1,12 @@
+{#
+    Macro for loading common css
+    
+    All stylesheets should be put in here.
+#}
+
+{% macro src(file) %}<link href="static/css/{{ file }}.css" rel="stylesheet" type="text/css" />{% endmacro %}
+
+{% macro ie(file) %}<!--[if IE]><link href="static/css/{{ file }}.css" rel="stylesheet" type="text/css" /><![endif]-->{% endmacro %}
+
+{% macro ui() %}{{ _self.src('jqueryui') }}{% endmacro %}
+

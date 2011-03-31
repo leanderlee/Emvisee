@@ -1,0 +1,129 @@
+[stage] Router Test
+function a($a, $b, $c) {
+    return array('controller' => $a, 'method' => $b, 'params' => $c);
+}
+
+[module] Simple Interpretation
+
+$q = "/";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, ''), $a, 'Index Test');
+
+$q = "///";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, ''), $a, 'Trim 1 Test');
+
+$q = "    ///////  ";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, ''), $a, 'Trim 2 Test');
+
+$q = "/one/";
+$a = array(
+    a('one', 'index', array()),
+    a('index', 'one', array()),
+    a('index', 'index', array('one'))
+);
+test(router::interpretations($q, ''), $a, 'Single Test');
+
+$q = "/one/two/";
+$a = array(
+    a('one', 'two', array()),
+    a('one', 'index', array('two')),
+    a('index', 'one', array('two')),
+    a('index', 'index', array('one', 'two'))
+);
+test(router::interpretations($q, ''), $a, 'Double Test');
+
+$q = "/one/two/three/";
+$a = array(
+    a('one', 'two', array('three')),
+    a('one', 'index', array('two', 'three')),
+    a('index', 'one', array('two', 'three')),
+    a('index', 'index', array('one', 'two', 'three'))
+);
+test(router::interpretations($q, ''), $a, 'Triple Test');
+
+$q = "/one/two/three/four/";
+$a = array(
+    a('one', 'two', array('three', 'four')),
+    a('one', 'index', array('two', 'three', 'four')),
+    a('index', 'one', array('two', 'three', 'four')),
+    a('index', 'index', array('one', 'two', 'three', 'four'))
+);
+test(router::interpretations($q, ''), $a, 'Four Test');
+
+[module] Special Interpretation Cases
+$q = "/one/two//three/";
+$a = array(
+    a('one', 'two', array('three')),
+    a('one', 'index', array('two', 'three')),
+    a('index', 'one', array('two', 'three')),
+    a('index', 'index', array('one', 'two', 'three'))
+);
+test(router::interpretations($q, ''), $a, 'Extra slash 1 test');
+
+$q = "/one//two/";
+$a = array(
+    a('one', 'two', array()),
+    a('one', 'index', array('two')),
+    a('index', 'one', array('two')),
+    a('index', 'index', array('one', 'two'))
+);
+test(router::interpretations($q, ''), $a, 'Extra slash 2 test');
+
+$q = "/one/two/three";
+$a = array(
+    a('one', 'two', array('three')),
+    a('one', 'index', array('two', 'three')),
+    a('index', 'one', array('two', 'three')),
+    a('index', 'index', array('one', 'two', 'three'))
+);
+test(router::interpretations($q, ''), $a, 'Missing slash test');
+
+[module] Wierd Root Directory
+$q = "/";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, '/test/'), $a, 'Index Test');
+
+$q = "///";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, '/test/'), $a, 'Trim 1 Test');
+
+$q = "    ///////  ";
+$a = array(a('index', 'index', array()));
+test(router::interpretations($q, '/test/'), $a, 'Trim 2 Test');
+
+$q = "/test/one/";
+$a = array(
+    a('one', 'index', array()),
+    a('index', 'one', array()),
+    a('index', 'index', array('one'))
+);
+test(router::interpretations($q, '/test/'), $a, 'Single Test');
+
+$q = "/test/one/two/";
+$a = array(
+    a('one', 'two', array()),
+    a('one', 'index', array('two')),
+    a('index', 'one', array('two')),
+    a('index', 'index', array('one', 'two'))
+);
+test(router::interpretations($q, '/test/'), $a, 'Double Test');
+
+$q = "/test/one/two/three/";
+$a = array(
+    a('one', 'two', array('three')),
+    a('one', 'index', array('two', 'three')),
+    a('index', 'one', array('two', 'three')),
+    a('index', 'index', array('one', 'two', 'three'))
+);
+test(router::interpretations($q, '/test/'), $a, 'Triple Test');
+
+$q = "/test/one/two/three/four/";
+$a = array(
+    a('one', 'two', array('three', 'four')),
+    a('one', 'index', array('two', 'three', 'four')),
+    a('index', 'one', array('two', 'three', 'four')),
+    a('index', 'index', array('one', 'two', 'three', 'four'))
+);
+test(router::interpretations($q, '/test/'), $a, 'Four Test');

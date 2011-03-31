@@ -1,0 +1,13 @@
+{#
+    Macro for loading common js
+    
+    All javascript libraries should be put in here.
+#}
+
+{% macro src(file) %}<script type="text/javascript" src="static/js/{{ file }}.js"></script>{% endmacro %}
+
+{% macro corners() %}{{ _self.src('jquery.corner.min') }}{% endmacro %}
+
+{% macro ui() %}{{ _self.src('jqueryui.min') }}{% endmacro %}
+
+{% macro jquery() %}{{ _self.src('jquery.min') }}{% endmacro %}

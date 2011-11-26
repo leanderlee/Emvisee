@@ -6,15 +6,34 @@
     
 */
 
-function class_loader($class_name) {
-    @include_once 'lib/' . $class_name . '.php';
+class Loader {
+    
+    private static $prefixes = [];
+    
+    public static function addPrefix($prefix) {
+        array_push(Loader::$prefixes, $prefix);
+    }
+    
+    public static function load($class_name) {
+        
+        foreach (Loader::$prefixes as $prefix) {
+        
+            $suggestedFileName = $prefix . DIRECTORY_SEPARATOR . $class_name . '.php';
+            if (file_exists($suggestedFileName)) {
+                include_once($suggestedFileName);
+                return;
+            }
+        }
+        
+        return false;
+        
+    }
+    
 }
 
-function leander_loader($class_name) {
-    @include_once 'lib/leander/' . $class_name . '.php';
-}
+Loader::addPrefix('lib');
+Loader::addPrefix('lib/leander');
 
-spl_autoload_register('class_loader');
-spl_autoload_register('leander_loader');
+spl_autoload_register('Loader::load');
 
 ?>

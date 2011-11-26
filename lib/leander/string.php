@@ -78,15 +78,15 @@ class string {
         return $ret;
     }
     
-    function starts($s, $pre = "") {
+    function static starts($s, $pre = "") {
         if ($pre == '') return true;
         return (preg_match('/^' . preg_quote($pre) . '/', $s) > 0);
     }
-    function ends($s, $suf = "") {
+    function static ends($s, $suf = "") {
         if ($suf == '') return true;
         return (preg_match('/' . preg_quote($suf) . '$/', $s) > 0);
     }
-    function before($c, $s, $first = true) {
+    function static before($c, $s, $first = true) {
         if ($c == '') return $s;
         $i = ($first) ? stripos($s, $c) : strripos($s, $c);
         if ($i !== false) {
@@ -94,7 +94,7 @@ class string {
         }
         return $s;
     }
-    function after($c, $s, $first = true) {
+    function static after($c, $s, $first = true) {
         if ($c == '') return $s;
         $i = ($first) ? stripos($s, $c) : strripos($s, $c);
         if ($i !== false) {
@@ -102,16 +102,16 @@ class string {
         }
         return "";
     }
-    function my($s, $len = -1) {
+    function static my($s, $len = -1) {
         if ($len != -1) {
             $s = substr($s, 0, $len);
         }
         return mysql_real_escape_string($s);
     }
-    function html($s) {
+    function static html($s) {
         return htmlspecialchars($s);
     }
-    function t($s, $c = " \t\n\r\0\x0B") {
+    function static t($s, $c = " \t\n\r\0\x0B") {
         return trim($s, $c);
     }
     public static function username($s) {
@@ -128,35 +128,35 @@ class string {
         }
         return implode(' ', $pieces);
     }
-    function lower($s) {
+    function static lower($s) {
         return strtolower($s);
     }
-    function upper($s) {
+    function static upper($s) {
         return strtoupper($s);
     }
-    function f($s, $regex = "/[^-a-zA-Z0-9_.@]+/S") {
+    function static f($s, $regex = "/[^-a-zA-Z0-9_.@]+/S") {
         return preg_replace($regex, "", $s);
     }
-    function e($s) {
+    function static e($s) {
         return self::f($s, "/[^-a-zA-Z0-9_.@]+/S");
     }
-    function a($s, $other_chars = "") {
+    function static a($s, $other_chars = "") {
         $other_chars = addslashes($other_chars);
         return self::f($s, "/[^".$other_chars."a-zA-Z0-9]+/S");
     }
-    function n($s) {
+    function static n($s) {
         return floatval($s);
     }
-    function i($s) {
+    function static i($s) {
         return intval($s);
     }
-    function c($f) {
+    function static c($f) {
         return sprintf("%01.2f", self::n(f));
     }
-    function url($s) {
+    function static url($s) {
         return urlencode($s);
     }
-    function deurl($s) {
+    function static deurl($s) {
         return urldecode($s);
     }
 }
